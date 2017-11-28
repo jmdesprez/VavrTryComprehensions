@@ -22,7 +22,7 @@ class TryComp<T>(override val context: CoroutineContext) : Continuation<Try<T>> 
     }
 
     suspend fun <U> assert(block: () -> Try<U>): U = block().bind()
-    suspend fun fail(error: Throwable): Nothing = suspendCoroutine { result = Try.failure(error) }
+    suspend fun fail(error: Throwable): Nothing = Try.failure<Nothing>(error).bind()
     suspend fun fail(message: String): Nothing = fail(AssertionError(message))
     fun <U> success(value: U): U = value
     fun success() {}
