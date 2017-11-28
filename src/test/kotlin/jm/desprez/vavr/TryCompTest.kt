@@ -6,6 +6,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import java.lang.Thread.yield
 import java.util.function.Predicate
 import java.util.function.Supplier
 
@@ -15,13 +16,25 @@ fun tryFail(): Try<Int> = Try.failure(Exception("Test exception"))
 
 object TryComprehensionSpek : Spek({
     given("a simple addition") {
-        val tryTo: Try<String> = tryTo {
-            val a: Int = tryGetA().bind()
-            val b: Int = tryGetB().bind()
-            yield("${a + b}")
+        on("yield value using yield(value)") {
+            val tryTo: Try<String> = tryTo {
+                val a: Int = tryGetA().bind()
+                val b: Int = tryGetB().bind()
+                yield("${a + b}")
+            }
+            it("should succeed and contains the sum") {
+                assert.that(tryTo, contains("1"))
+            }
         }
-        it("should succeed and contains the sum") {
-            assert.that(tryTo, contains("1"))
+        on("yield value using extension function") {
+            val tryTo: Try<String> = tryTo {
+                val a: Int = tryGetA().bind()
+                val b: Int = tryGetB().bind()
+                "${a + b}".yield()
+            }
+            it("should succeed and contains the sum") {
+                assert.that(tryTo, contains("1"))
+            }
         }
     }
 
