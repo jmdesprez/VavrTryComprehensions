@@ -26,3 +26,7 @@ fun main(args: Array<String>) {
     println(liveIn)
 }
 ```
+
+# Note
+
+Use [Spek IntelliJ plugin](https://plugins.jetbrains.com/plugin/8564-spek) to run the tests from IntelliJ
