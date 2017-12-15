@@ -13,7 +13,6 @@ version = "1.0-SNAPSHOT"
 
 buildscript {
     val junit_version by extra { "5.0.2" }
-    val atrium_version by extra { "0.3.0" }
 
     repositories {
         mavenCentral()
@@ -29,7 +28,7 @@ apply {
 
 plugins {
     application
-    kotlin("jvm") version "1.1.60"
+    kotlin("jvm") version "1.2.0"
 }
 
 configure<JUnitPlatformExtension> {
